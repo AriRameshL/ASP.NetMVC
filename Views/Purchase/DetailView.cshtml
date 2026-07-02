@@ -1,0 +1,131 @@
+﻿@model PurchaseViewModel
+<div class="card">
+	<div class="row" style="padding:3px">
+		<div class="col-md-6 text-uppercase"><strong> Purchase Details</strong> </div>
+
+	</div>
+	<hr style="margin:0px" />
+	<div class="card-body">
+		<div class="row">
+			<div class="col-md-6 ">
+				<div class="row">
+					<div class="col-md-4 fw-bold"> Tran No</div>
+					<div class="col-md-8 ">: @Model.TranNo</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fw-bold"> Tran date</div>
+					<div class="col-md-8 ">: @Model.TranDate.ToString("dd-MMM-yyyy")</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fw-bold"> Audio Id</div>
+					<div class="col-md-8 ">: @Model.AudioId</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fw-bold"> Audio Name</div>
+					<div class="col-md-8 ">: @Model.AudioName</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fw-bold"> Author Name</div>
+					<div class="col-md-8 ">: @Model.AuthorName</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fw-bold"> Pieces</div>
+					<div class="col-md-8 ">: @Model.Pieces</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fw-bold"> Rate</div>
+					<div class="col-md-8 ">: @Model.Rate.ToString("#0.00")</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fw-bold"> Amount</div>
+					<div class="col-md-8 ">: @Model.Amount.ToString("#0.00")</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fw-bold"> Created Time</div>
+					<div class="col-md-8 ">: @Model.CreatedTime.ToString("dd-MMM-yyyy hh:mm:ss tt")</div>
+				</div>
+				<br />
+				<div class="row btn-group text-nowrap">
+					<form asp-controller="Purchase" asp-action="Cancel" method="post" class="col-md-3 text-center">
+						<input type="hidden" name="_TranNo" value="@Model.TranNo" />
+						<button type="button" class="btn btn-danger"
+								data-bs-toggle="modal"
+								data-bs-target="#cancelModal">
+							<i class="bi bi-cart-x"></i>
+							Cancel
+						</button>
+					</form>
+					<div class="col-md-3 text-center">
+						<a asp-controller="Purchase" asp-action="PurchaseView" class="btn btn-primary">
+							<i class="bi bi-arrow-left-circle"></i>	Back
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<img src="@Model.CoverImage" class="d-flex" />
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="cancelModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">Confirmation</h3>
+			</div>
+
+			<div class="modal-body">
+				<div class="row text-md-center">
+					Are you sure you want to cancel this transaction?
+				</div>
+				<br />
+				<div class="row col-md-12">
+					<form asp-action="Cancel" method="post" class="col-md-6">
+						<input type="hidden" name="_TranNo" value="@Model.TranNo" />
+						<button type="submit" class="btn btn-danger w-50">
+							Yes
+						</button>
+					</form>
+					<button type="button" class="btn btn-secondary col-md-6 w-25 align-items-center" data-bs-dismiss="modal">
+						No
+					</button>
+				</div>
+				<br />
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts
+{
+	<partial name="CustomerView/CustomerView" model="Model.Customer"></partial>
+
+	<script>
+		function OpenCustomerPopup() {
+
+			$("#popupBody").load("CustomerView/CustomerView");
+			GetCustomerDetails();
+			var modal = new bootstrap.Modal(document.getElementById("CustView"));
+			//modal.show();
+
+		}
+		function GetCustomerDetails()
+		{
+			var Id=@Model.Customer.CustomerId;
+			$.ajax({
+				url:'/Purchase/GetCustomerDetailAPI',
+				type:'GET',
+				data:{CustId: Id},
+				success:function(data){
+					console.log(data)
+				},
+				error:function(xhr){
+					console.log(xhr)
+				}
+			})
+		}
+	</script>
+
+
+}

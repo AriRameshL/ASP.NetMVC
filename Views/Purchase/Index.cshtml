@@ -1,0 +1,232 @@
+﻿@model Purchase
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 text-uppercase fw-bold">
+			<h2>Audio Purchase</h2>
+		</div>
+		<div class="col-md-3 text-end">
+			<a asp-controller="Purchase" asp-action="PurchaseView" class="btn btn-warning align-content-center">
+				<i class="bi bi-blockquote-right"></i> Detail View
+			</a>
+		</div>
+		<div class="col-md-3 text-start">
+			<a asp-controller="Purchase" asp-action="CardView" class="btn btn-primary align-content-center">
+				<i class="bi bi-border-outer"></i> Card View
+			</a>
+		</div>
+
+	</div>
+
+	<hr />
+
+	<div class="row">
+		<form method="post" class="col-md-12">
+			<div class="row">
+				<div class="col-md-4 border border-1">
+					<div class="mb-3">
+						<label class="form-label fw-bold">Audio Name</label>
+
+						@Html.DropDownListFor(
+						m => m.AudioId,
+												ViewBag.AudioList as SelectList,																																																																																																																																"-- Select Audio --",
+												new { @class = "form-control", @id = "AudioId" })
+						<input asp-for=@Model.AudioId type="number" Id="SelAudioId" class="form-control" hidden />
+					</div>
+					<div class="mb-3">
+						<label class="form-label fw-bold">Pieces</label>
+						<input asp-for="@Model.Pieces" type="number" Id="Pieces" class="form-control" />
+						<span asp-validation-for="@Model.Pieces" class="text-danger"></span>
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label fw-bold">Rate</label>
+						<input asp-for="@Model.Rate" type="text" id="Rate" class="form-control" readonly />
+					</div>
+					<div class="mb-3">
+						<label class="form-label fw-bold">Amount</label>
+						<input asp-for="@Model.Amount" type="text" id="Amount" class="form-control" readonly />
+						<span asp-validation-for="@Model.Amount" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="col-md-4 border	border-1">
+					<header>
+						<h5 style="color:green">Customer Details</h5>
+					</header>
+					<div class="row align-items-center mb-3">
+						<div class="col-md-4">
+							<label class="form-label fw-bold "> MobileNo</label>
+						</div>
+						<div class="col-md-8">
+							<input asp-for="@Model.Customer.CustomerId" type="number" id="CustomerId" class="form-control" hidden />
+							<input asp-for="@Model.Customer.MobileNo" type="number" onblur="Validate_MobileNo()" id="PhoneNumber" class="form-control col-md-6" />
+							<span asp-validation-for=@Model.Customer.MobileNo class="text-danger"></span>
+						</div>
+					</div>
+					<div class="row align-items-center mb-3">
+						<div class="col-md-4">
+							<label class="form-label fw-bold "> Name</label>
+						</div>
+						<div class="col-md-8">
+							<input asp-for="@Model.Customer.CustName" type="text" id="CustName" class="col-md-6 form-control" />
+							<span asp-validation-for="@Model.Customer.CustName" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="row align-items-center mb-3">
+						<div class="col-md-4">
+							<label class="form-label fw-bold ">Gender</label>
+						</div>
+						<div class="col-md-8">
+							<input asp-for="@Model.Customer.Gender" type="text" id="Gender" class="col-md-6 form-control" />
+						</div>
+					</div>
+					<div class="row align-items-center mb-3">
+						<div class="col-md-4">
+							<label class="form-label fw-bold ">Address</label>
+						</div>
+						<div class="col-md-8">
+							<input asp-for="@Model.Customer.CustAddress" type="text" id="CustAddress" class="col-md-6 form-control" />
+						</div>
+					</div>
+					<div class="row align-items-center mb-3">
+						<div class="col-md-4">
+							<label class="form-label fw-bold ">City</label>
+						</div>
+						<div class="col-md-8">
+							<input asp-for="@Model.Customer.City" type="text" id="City" class="col-md-6 form-control" />
+						</div>
+					</div>
+					<div class="row align-items-center mb-3">
+						<div class="col-md-4">
+							<label class="form-label fw-bold ">District</label>
+						</div>
+						<div class="col-md-8">
+							<input asp-for="@Model.Customer.District" type="text" id="District" class="col-md-6 form-control" />
+						</div>
+					</div>
+					<div class="row align-items-center mb-3">
+						<div class="col-md-4">
+							<label class="form-label fw-bold "> PinCode</label>
+						</div>
+						<div class="col-md-8">
+							<input asp-for="@Model.Customer.PinCode" type="text" id="PinCode" class="col-md-6 form-control" />
+						</div>
+					</div>
+					<div class="row align-items-center mb-3">
+						<div class="col-md-4">
+							<label class="form-label fw-bold ">E mail</label>
+						</div>
+						<div class="col-md-8">
+							<input asp-for="@Model.Customer.Email" type="text" id="Email" class="col-md-6 form-control" />
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<img id="CoverImage" class="img-fluid" />
+				</div>
+			</div>
+			<br />
+			<div class="row col-md-8 d-flex justify-content-center">
+				<div class="mb-3 text-center">
+					<button type="submit" class="btn btn-success"><i class="bi bi-journal-arrow-down"></i> Save</button>
+					<a asp-controller="Purchase" asp-action="Index" id="Clear" class="btn btn-danger"> <i class="bi bi-arrow-clockwise"></i> Clear </a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+@section Scripts
+{
+	<partial name="_ValidationScriptsPartial"></partial>
+
+	<script>
+		$(document).ready(function () {
+
+			$("#AudioId").change(function () {
+
+				var audioId = $(this).val();
+
+				console.log("Selected AudioId = " + audioId);
+
+				if (audioId != "") {
+					$.ajax({
+						url: '/Purchase/GetRate',
+						type: 'GET',
+						data: { id: audioId },
+
+						success: function (data) {
+
+							console.log(data)
+							$("#SelAudioId").val(data.audioId);
+							$("#Rate").val(data.rate);
+							$("#CoverImage").attr("src",data.coverImage);
+						},
+
+						error: function (xhr) {
+
+							console.log(xhr);
+							alert("Error");
+						}
+					});
+				}
+				else {
+
+					$("#Rate").val("");
+				}
+			});
+
+
+			$("#Pieces").change(function () {
+
+				var Pieces = parseFloat( $(this).val());
+				var Rate = parseFloat($("#Rate").val());
+				var Amount=0;
+				// console.log(Pieces);
+				// console.log(Rate);
+			   if (Pieces!=0 && Rate!=0){
+				Amount=Pieces * Rate;
+				console.log(Amount);
+				$("#Amount").val(Amount);
+			   }
+			   else
+			   {
+				console.log("Error");
+
+			   }
+			});
+		});
+
+			function Validate_MobileNo()
+			{
+				var MobNo= $("#PhoneNumber").val();
+				console.log("Entered MobileNo = " + MobNo);
+				if (MobNo!="")
+				{
+					$.ajax({
+						url:'Purchase/GetCustomerDetail',
+						type:'GET',
+						data:{_MobileNo: MobNo},
+						success: function(data){
+							console.log(data)
+							if (data!=null)
+							{
+								$("#CustomerId").val(data.customerId)
+								$("#CustName").val(data.custName)
+								$("#CustAddress").val(data.custAddress)
+								$("#City").val(data.city)
+								$("#District").val(data.district)
+								$("#PinCode").val(data.pinCode)
+								$("#Email").val(data.email)
+							}
+						},
+						error: function(ex){
+							console.log(ex);
+							alert("Error");							
+						}
+
+					});
+				}
+			}
+
+	</script>
+}

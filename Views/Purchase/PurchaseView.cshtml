@@ -1,0 +1,62 @@
+﻿@model List<PurchaseViewModel>
+<div class="container">
+	<div class="row">
+		<h2 class="col-md-8 text-uppercase "> Audio Purchase Details</h2>
+		<div class="col-md-4 text-end">
+			<a asp-controller="Purchase" asp-action="Index" class="btn btn-danger w-25" data-toggle="tool-tip" data-placement="top" title="Back">
+				<i class="bi bi-arrow-left-circle"></i>Back
+			</a>
+		</div>
+	</div>
+	@if (Model.Count > 0)
+	{
+		<table id="table" class="table table-bordered border">
+			<thead>
+				<tr>
+					<td class="text-center fw-bold">TranNo</td>
+					<td class="text-center fw-bold">TranDate</td>
+					<td class="text-center fw-bold">AudioId</td>
+					<td class="text-center fw-bold">AudioName</td>
+					<td class="text-center fw-bold">Pieces</td>
+					<td class="text-center fw-bold">Rate</td>
+					<td class="text-center fw-bold">Amount</td>
+					<td class="text-center fw-bold">Status</td>
+					<td class="text-center fw-bold">CreatedTime</td>
+					<td class="text-center fw-bold">View</td>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (PurchaseViewModel item in Model)
+				{
+					<tr>
+						<td class="text-end">@item.TranNo</td>
+						<td>@item.TranDate.ToString("dd-MMM-yyyy")</td>
+						<td class="text-end">@item.AudioId</td>
+						<td>@item.AudioName</td>
+						<td class="text-end">@item.Pieces</td>
+						<td class="text-end">@item.Rate.ToString("#0.00")</td>
+						<td class="text-end">@item.Amount.ToString("#0.00")</td>
+						<td>@item.Cancel</td>
+						<td>@item.CreatedTime</td>
+						<td class="btn-group d-flex	justify-content-center">
+							<a asp-controller="Purchase" asp-action="DetailView" asp-route-_TranNo="@item.TranNo" class="btn btn-primary"
+							   data-toggle="tool-tip" data-placement="top" title="Detail View">
+								<i class="bi bi-arrow-right-circle"></i>
+							</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<div class="text-center text-warning p-1"> No Purchase Details Found</div>
+	}
+</div>
+@section Scripts
+{
+	<script>
+		$('#table').DataTable();
+	</script>
+}

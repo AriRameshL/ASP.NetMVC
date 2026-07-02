@@ -1,0 +1,97 @@
+﻿@model List<PurchaseViewModel>
+<div class="container">
+	<div class="row">
+		<h2 class="col-md-8 text-uppercase" style="padding-left:100px"> Audio Purchase View</h2>
+		<div class="col-md-4 text-center">
+			<a asp-controller="Purchase" asp-action="Index" class="btn btn-danger w-25">
+				<i class="bi bi-arrow-left-circle"></i> Back
+			</a>
+		</div>
+	</div>
+	<div class="d-flex" style="flex-wrap:wrap;">
+		@foreach (PurchaseViewModel item in Model)
+		{
+			<div class="card align-content-center g-5" style="margin:2px;padding:2px;width:48%">
+				<div class="card-header text-center fw-bold" style="color:red">
+					@item.AudioName
+				</div>
+				<img src="@item.CoverImage" class="col-md-4 border border-3" />
+				<div class="row">
+					<div class="row col-md-5 ">
+						<div class="col-md-4 text-nowrap"> Tran No</div>
+						<div class="col-md-8 fw-bold">: @item.TranNo</div>
+					</div>
+					<div class="row col-md-7">
+						<div class="col-md-4 text-nowrap"> Tran date</div>
+						<div class="col-md-8 fw-bold">: @item.TranDate.ToString("dd-MMM-yyyy")</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="row col-md-5">
+						<div class="col-md-4 text-nowrap"> Audio Id</div>
+						<div class="col-md-8 fw-bold">: @item.AudioId</div>
+					</div>
+					<div class="row col-md-7">
+						<div class="col-md-4 text-nowrap"> Author</div>
+						<div class="col-md-8 fw-bold">: @item.AuthorName</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="row col-md-5">
+						<div class="col-md-4 text-nowrap"> Pieces</div>
+						<div class="col-md-8 fw-bold">: @item.Pieces</div>
+					</div>
+					<div class="row col-md-7">
+						<div class="col-md-4 text-nowrap"> Rate</div>
+						<div class="col-md-8 fw-bold">: @item.Rate.ToString("#0.00")</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="row col-md-5">
+						<div class="col-md-4 text-nowrap"> Amount</div>
+						<div class="col-md-8 fw-bold">: @item.Amount.ToString("#0.00")</div>
+					</div>
+					<div class="row col-md-7">
+						<div class="col-md-4 text-nowrap"> Time</div>
+						<div class="col-md-8 fw-bold">: @item.CreatedTime.ToString("hh:mm:ss tt")</div>
+					</div>
+					<div class="row text-center" style="color:green;">	<h6 class="col-md-6">Customer Details</h6></div>
+					<div class="row">
+						<div class="col-md-3 text-nowrap"> Name</div>
+						<div class="col-md-9 fw-bold">: @item.Customer.CustName</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-nowrap"> MobileNo</div>
+						<div class="col-md-9 fw-bold">: @item.Customer.MobileNo </div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-nowrap"> Email</div>
+						<div class="col-md-9 fw-bold">: @item.Customer.Email </div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-nowrap"> Gender</div>
+						<div class="col-md-9 fw-bold">: @(item.Customer.Gender.ToString().ToUpper() == "M" ? "Male" : "Female") </div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-nowrap"> Address</div>
+						<div class="col-md-9 fw-bold">: @item.Customer.CustAddress </div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-nowrap"> City</div>
+						<div class="col-md-9 fw-bold">: @item.Customer.City </div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-nowrap"> District</div>
+						<div class="col-md-9 fw-bold">: @item.Customer.District </div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-nowrap"> PinCode</div>
+						<div class="col-md-9 fw-bold">: @item.Customer.PinCode </div>
+					</div>
+				</div>
+			</div>
+			<br />
+		}
+	</div>
+
+</div> 
