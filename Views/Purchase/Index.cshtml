@@ -77,7 +77,8 @@
 							<label class="form-label fw-bold ">Gender</label>
 						</div>
 						<div class="col-md-8">
-							<input asp-for="@Model.Customer.Gender" type="text" id="Gender" class="col-md-6 form-control" />
+							@Html.DropDownListFor(m => m.Customer.Gender, ViewBag.Gender as SelectList, new { @class = "form-select", @id = "Gender" })
+							@* <input asp-for="@Model.Customer.Gender" type="text" id="Gender" class="col-md-6 form-control" /> *@
 						</div>
 					</div>
 					<div class="row align-items-center mb-3">
@@ -217,6 +218,7 @@
 								$("#District").val(data.district)
 								$("#PinCode").val(data.pinCode)
 								$("#Email").val(data.email)
+								$("#Gender").val(data.gender)
 							}
 						},
 						error: function(ex){

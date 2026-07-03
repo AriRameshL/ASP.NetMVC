@@ -24,11 +24,16 @@ namespace AudioSeller.Models
         [RegularExpression(@"^[0-9]+$", ErrorMessage = "Only numbers Are Allowed")]
         public string MobileNo { get; set; }
         [EmailAddress(ErrorMessage = "Enter The Valid Email Address")]
+        [StringLength(100)]
         public string Email { get; set; }
+        [StringLength(250)]
         public string Address { get; set; }
+        [StringLength(100)]
         public string City { get; set; }
         [StringLength(maximumLength: 1,MinimumLength =1)]
         public  string Gender { get; set; }
+        [StringLength(1,ErrorMessage ="Select Active Type")]
         public string Active { get; set; } = string.Empty;
+        
     }
 }

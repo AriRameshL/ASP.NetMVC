@@ -22,10 +22,8 @@ namespace AudioSeller.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.AudioList = new SelectList(
-                m_DbContext.AudioMaster.ToList(),
-                "AudioId",
-                "AudioName");
+            ViewBag.AudioList = new SelectList(m_DbContext.AudioMaster.ToList(), "AudioId", "AudioName");
+            ViewBag.Gender = new SelectList(m_DbContext.Database.SqlQuery<Gender>($"Select *From GetGender()"), "GenderId", "GenderName");
 
             return View();
         }

@@ -5,7 +5,7 @@
 			<h4><i class="bi bi-person-vcard"></i>  Operater Creation</h4>
 		</div>
 		<div class="col-md-6 text-end" style="padding-right:15px">
-			<a asp-Controller="Operater" asp-action="DetailView" class="btn btn-warning"><i class="bi bi-card-list"></i> View </a>
+			<a asp-Controller="Operator" asp-action="DetailView" class="btn btn-warning"><i class="bi bi-card-list"></i> View </a>
 		</div>
 	</div>
 	<hr />
@@ -61,8 +61,9 @@
 					<label class="form-label"> Gender</label>
 				</div>
 				<div class="col-md-8">
-					<input asp-for="@Model.Gender" type="text" id="Gender" class="form-control" />
-					<span asp-validation-for="@Model.Gender" class="text-danger"></span>
+					@Html.DropDownListFor(m => m.Gender, ViewBag.Gender as SelectList, new { @class = "form-select", @id = "Gender" })
+					@* <input asp-for="@Model.Gender" type="text" id="Gender" class="form-control" hidden/> 
+					<span asp-validation-for="@Model.Gender" class="text-danger"></span> *@
 				</div>
 			</div>
 			<div class="row" style="margin-bottom:5px">
@@ -83,13 +84,14 @@
 					<span asp-validation-for="@Model.City" class="text-danger"></span>
 				</div>
 			</div>
-			<div class="row" style="margin-bottom:5px">
+			<div class="row" style="margin-bottom:15px">
 				<div class="col-md-4">
 					<label class="form-label"> Active</label>
 				</div>
 				<div class="col-md-8">
-					<input asp-for="@Model.Active" type="text" id="Active" class="form-control" />
-					<span asp-validation-for="@Model.Active" class="text-danger"></span>
+					@Html.DropDownListFor(m => m.Active, ViewBag.YesNo as SelectList, new { @class = "form-select", @id = "Active" })
+					@* <input asp-for="@Model.Active" type="text" id="Active" class="form-control" />
+					<span asp-validation-for="@Model.Active" class="text-danger"></span> *@
 				</div>
 			</div>
 			<div class="row" style="margin-bottom:5px">

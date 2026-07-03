@@ -1,6 +1,8 @@
 ﻿using AudioSeller.DbConnect;
 using AudioSeller.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AudioSeller.Controllers
 {
@@ -14,7 +16,9 @@ namespace AudioSeller.Controllers
 
         [HttpGet]
         public IActionResult Index()
-        {
+        {           
+            ViewBag.Gender = new SelectList(m_DbContext.Database.SqlQuery<Gender>($"Select *From GetGender()"), "GenderId", "GenderName");
+            ViewBag.YesNo = new SelectList(m_DbContext.Database.SqlQuery<YesNo>($"Select *From GetYesNo()"), "Id", "Name");
             return View();
         }
         [HttpPost]
