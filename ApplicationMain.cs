@@ -4,7 +4,7 @@ namespace AudioSeller
 {
     public static class ApplicationMain
     {
-        public static Operator OperData;
+        public static Operator OperData=new Operator();
         
     }
 }

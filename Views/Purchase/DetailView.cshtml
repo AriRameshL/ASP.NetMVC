@@ -45,8 +45,48 @@
 					<div class="col-md-8 ">: @Model.CreatedTime.ToString("dd-MMM-yyyy hh:mm:ss tt")</div>
 				</div>
 				<br />
+
+				<div class="row border border-3">
+					<h5 class="col-md-9 text-center"> Customer Details</h5>
+					<div class="row">
+						<div class="col-md-3 fw-bold"> Name </div>
+						<div class="col-md-9">: @Model.Customer.CustName</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 fw-bold"> Gender</div>
+						<div class="col-md-9">: @Model.Customer.Gender</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 fw-bold"> Mobile No </div>
+						<div class="col-md-9">: @Model.Customer.MobileNo</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 fw-bold"> Address </div>
+						<div class="col-md-9">: @Model.Customer.CustAddress</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 fw-bold"> City </div>
+						<div class="col-md-9">: @Model.Customer.City</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 fw-bold"> District </div>
+						<div class="col-md-9">: @Model.Customer.District</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 fw-bold"> Pincode </div>
+						<div class="col-md-9">: @Model.Customer.PinCode</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 fw-bold"> Email </div>
+						<div class="col-md-9">: @Model.Customer.Email</div>
+					</div>
+				</div>
+				<br />
+
+
+
 				<div class="row btn-group text-nowrap">
-					<form asp-controller="Purchase" asp-action="Cancel" method="post" class="col-md-3 text-center">
+					<form asp-controller="Purchase" asp-action="Cancel" method="post" class="col-md-6 text-center">
 						<input type="hidden" name="_TranNo" value="@Model.TranNo" />
 						<button type="button" class="btn btn-danger"
 								data-bs-toggle="modal"
@@ -112,7 +152,7 @@
 		}
 		function GetCustomerDetails()
 		{
-			var Id=@Model.Customer.CustomerId;
+			var Id=@Model.Customer.CustomerId
 			$.ajax({
 				url:'/Purchase/GetCustomerDetailAPI',
 				type:'GET',
